@@ -15,7 +15,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Install dependencies with Composer.
 ONBUILD cd /var/www/html && composer install --no-scripts
 
-RUN chmod -R 777 storage
+ONBUILD chmod -R 777 storage
 
  ## Supervisor
 ## Install
