@@ -5,8 +5,8 @@ MAINTAINER orvice<orvice@orx.me>
 ENV VERSION 1.0
 WORKDIR /var/www/html
 
-# Install sspanel
-COPY . /var/www/html
+# Copy Laravel App
+ONBUILD COPY . /var/www/html
 
 
 # Install Composer
