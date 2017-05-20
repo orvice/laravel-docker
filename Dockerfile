@@ -21,9 +21,9 @@ ONBUILD RUN chmod -R 777 storage
 ## Install
 RUN \
   apt-get update && \
-  apt-get install -y supervisor cron vim && \
+  apt-get install -y python-pip cron vim && \
   rm -rf /var/lib/apt/lists/* && \
-  sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
+  pip install supervisor
 
 # Define working directory.
 WORKDIR /etc/supervisor/conf.d
