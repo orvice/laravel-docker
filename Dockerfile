@@ -39,6 +39,9 @@ WORKDIR /var/www/html
 
 EXPOSE 80
 
-#ENTRYPOINT ["/entrypoint.sh"]
+ADD entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+
+
 # Define default command.
 CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
