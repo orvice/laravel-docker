@@ -21,7 +21,7 @@ ONBUILD RUN chmod -R 777 storage
 ## Install
 RUN \
   apt-get update && \
-  apt-get install -y python-setuptools && \
+  apt-get install -y python-setuptools python-meld3 && \
   rm -rf /var/lib/apt/lists/* && \
   easy_install supervisor
 
