@@ -29,9 +29,8 @@ RUN \
 WORKDIR /etc/supervisor/conf.d
 
 
-RUN mkdir -p /var/log/supervisor
-#COPY supervisor /etc/supervisor/conf.d/
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+RUN mkdir -p /var/log/supervisor && mkdir -p /etc/supervisor
+COPY supervisord.conf /etc/supervisor/supervisord.conf
 VOLUME /var/log/supervisor
 
 WORKDIR /var/www/html
