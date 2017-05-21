@@ -17,20 +17,19 @@ ONBUILD RUN cd /var/www/html && composer install --no-scripts
 
 ONBUILD RUN chmod -R 777 storage
 
- ## Supervisor
-## Install
+# Install Supervisor.
 RUN \
   apt-get update && \
-  apt-get install -y python-setuptools python-meld3 && \
+  apt-get install -y supervisor && \
   rm -rf /var/lib/apt/lists/* && \
-  easy_install supervisor
+  sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
 
 # Define working directory.
 WORKDIR /etc/supervisor/conf.d
 
 
 RUN mkdir -p /var/log/supervisor && mkdir -p /etc/supervisor
-COPY supervisord.conf /etc/supervisor/supervisord.conf
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 VOLUME /var/log/supervisor
 
 WORKDIR /var/www/html
@@ -43,4 +42,4 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 
 # Define default command.
-CMD ["/usr/local/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
