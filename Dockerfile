@@ -21,8 +21,9 @@ ONBUILD RUN chmod -R 777 storage
 ## Install
 RUN \
   apt-get update && \
-  apt-get install -y supervisor cron vim && \
-  rm -rf /var/lib/apt/lists/*
+  apt-get install -y python-setuptools && \
+  rm -rf /var/lib/apt/lists/* && \
+  easy_install supervisor
 
 # Define working directory.
 WORKDIR /etc/supervisor/conf.d
@@ -43,4 +44,4 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 
 # Define default command.
-CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+CMD ["/usr/local/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
