@@ -20,7 +20,7 @@ ONBUILD RUN chmod -R 777 storage
 # Install Supervisor.
 RUN \
   apt-get update && \
-  apt-get install -y supervisor && \
+  apt-get install -y supervisor git && \
   rm -rf /var/lib/apt/lists/* && \
   sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
 
