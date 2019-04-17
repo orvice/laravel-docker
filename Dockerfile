@@ -1,21 +1,14 @@
-FROM orvice/apache-base
+FROM orvice/apache-base:71
 MAINTAINER orvice<orvice@orx.me>
 
 
 ENV VERSION 1.0
 WORKDIR /var/www/html
 
-# Copy Laravel App
-ONBUILD COPY . /var/www/html
-
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Install dependencies with Composer.
-ONBUILD RUN cd /var/www/html && composer install --no-scripts
-
-ONBUILD RUN chmod -R 777 storage
 
 # Install Supervisor.
 RUN \
@@ -30,9 +23,24 @@ WORKDIR /etc/supervisor/conf.d
 
 RUN mkdir -p /var/log/supervisor && mkdir -p /etc/supervisor
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-VOLUME /var/log/supervisor
+
 
 WORKDIR /var/www/html
+
+
+
+
+# Copy Laravel App
+ONBUILD COPY composer.json composer.lock /var/www/html
+
+
+
+
+# Install dependencies with Composer.
+ONBUILD RUN cd /var/www/html && composer install --no-scripts
+
+ONBUILD COPY . /var/www/html
+ONBUILD RUN chmod -R 777 storage
 
 
 EXPOSE 80
