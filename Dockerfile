@@ -31,7 +31,7 @@ WORKDIR /var/www/html
 
 
 # Copy Laravel App
-ONBUILD COPY composer.json composer.lock /var/www/html
+ONBUILD COPY composer.json composer.lock /var/www/html/
 
 
 
