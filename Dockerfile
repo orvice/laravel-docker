@@ -31,7 +31,7 @@ WORKDIR /var/www/html
 
 
 # Copy Laravel App
-ONBUILD COPY composer.json composer.lock /var/www/html/
+ONBUILD COPY . /var/www/html
 
 
 
@@ -39,8 +39,7 @@ ONBUILD COPY composer.json composer.lock /var/www/html/
 # Install dependencies with Composer.
 ONBUILD RUN cd /var/www/html && composer install --no-scripts
 
-ONBUILD COPY . /var/www/html
-ONBUILD RUN chmod -R 777 storage
+ONBUILD RUN chmod -R 777 /var/www/html/storage
 
 
 EXPOSE 80
